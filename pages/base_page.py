@@ -21,6 +21,12 @@ class BasePage:
     def get_element(self, locator):
         return self.driver.find_element(*locator)
 
+    def add_text_to_element(self, locator, text):
+        element = self.find_element_with_wait(locator)
+        element.clear()
+        element.send_keys(text)
+        return element
+
     
     @allure.title('Получаем текст элемента')
     def get_text_from_element(self, locator):

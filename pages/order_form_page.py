@@ -1,5 +1,5 @@
 import allure
-
+import time
 from selenium.webdriver.common.by import By
 from data import CUSTOMER_1, CUSTOMER_2, RENT_1, RENT_2
 from locators.order_form_locators import OrderFormLocators
@@ -20,8 +20,13 @@ class OrderPage(BasePage):
         return self.add_text_to_element(OrderFormLocators.placeholder_address, address)
 
     @allure.step('Заполняем поле Метро')
-    def input_metro(self, metro):
-        return self.add_text_to_element(OrderFormLocators.placeholder_metro, metro)
+    def input_metro(self, metro: str):
+        self.click_to_element(OrderFormLocators.placeholder_metro)
+
+        method, template = OrderFormLocators.list_metro  
+        locator = (method, template.format(metro))      
+        self.click_to_element(locator)
+    
 
     
     @allure.step('Заполняем поле Телефон')
@@ -38,16 +43,27 @@ class OrderPage(BasePage):
         self.click_to_element(OrderFormLocators.button_next)
 
     @allure.step('Заполняем поле Дата')
-    def input_date_rent(self, date):
-        return self.add_text_to_element(OrderFormLocators.placeholder_date_rent, date)
-
+    def input_date_rent(self, date: str):
+        self.click_to_element(OrderFormLocators.placeholder_date_rent)
+        time.sleep(0.8)
+        day = date.split('.')[0] 
+        method, template = OrderFormLocators.calendar_day
+        locator_calendar_day = (method, template.format(day))
+        self.click_to_element(locator_calendar_day)
 
     @allure.step('Заполняем поле Срок аренды')
-    def set_days(self, days):
+    def set_days(self, days: str):
         self.click_to_element(OrderFormLocators.placeholder_count_rent_day)
 
-        locator_for_day = OrderFormLocators.list_count_rent_day.format(days)
-        self.click_to_element((By.XPATH, locator_for_day))
+        
+        method, template = OrderFormLocators.list_count_rent_day
+
+        
+        locator = (method, template.format(days))
+
+       
+        self.click_to_element(locator)
+
 
     @allure.step('Заполняем цвет')
     def checkbox_colour(self, colour):
@@ -56,7 +72,7 @@ class OrderPage(BasePage):
 
     @allure.step('Заполняем поле Комментарий')
     def comment_input(self,comment):
-        return self.add_text_to_element(OrderFormLocators.input_comment, comment)      
+        return self.add_text_to_element(OrderFormLocators.placeholder_comment, comment)      
 
     @allure.step('Заполняем форму Про аренду')
     def form_about_rent(self,date, days, colour, comment):

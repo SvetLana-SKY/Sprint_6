@@ -27,5 +27,5 @@ RENT_1 = {
     'date': '23.08.2026', 'days': 'сутки', 'color': 'black', 'comment': 'Позвоните за час'
 }
 RENT_2 = {
-    'date': '01.09.2026', 'days': 'трое суток', 'color': 'grey',
+    'date': '30.08.2026', 'days': 'трое суток', 'color': 'grey',
     'comment': 'Без опоздания!'}

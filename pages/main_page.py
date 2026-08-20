@@ -40,3 +40,24 @@ class MainPage(BasePage):
     def check_answer_for_question(self, question_id):
         self.click_for_question(question_id)
         return self.get_answer_text(question_id)
+
+
+        
+    @allure.step('Кликаем по кнопке Заказать вверху страницы')
+    def click_for_order_button_up(self):
+        return self.click_to_element(MainPageLocators.order_button_up)
+
+    
+    @allure.step('Прокручиваем страницу вниз до кнопки Заказать')
+    def scroll_for_order_button_down(self):
+        button_order_down = self.find_element_with_wait(MainPageLocators.order_button_down)
+        self.scroll_for_element(button_order_down)
+
+    
+    @allure.step('Кликаем по кнопке Заказать внизу страницы')
+    def click_for_order_button_down(self):
+        return self.click_to_element(MainPageLocators.order_button_down)
+
+    @allure.step('Создаем заказ')
+    def created_order(self, button):
+        self.click_to_element(button)
