@@ -6,7 +6,7 @@ from pages.base_page import BasePage
 
 class MainPage(BasePage):
 
-    MAIN_URL = "https://practicum.yandex.ru/self_driving_scooter/"
+    MAIN_URL = "https://qa-scooter.praktikum-services.ru/"
 
     @allure.step('открываем страницу')
     def open(self):
@@ -17,21 +17,26 @@ class MainPage(BasePage):
     def accept_cookie(self):
         return self.click_to_element(MainPageLocators.button_cookie)
 
+    @allure.step('Прокручиваем страницу до вопросов')
+    def scroll_for_question_block(self):
+        last_question_scroll = self.find_element_with_wait(MainPageLocators.last_question)
+        return self.scroll_for_element(last_question_scroll)
 
-     
-@allure.step('Раскрываем вопрос FAQ №{question_number}')
-def click_faq_question(self, question_number: int):
-    locator = (
-        MainPageLocators.faq_question_form[0],
-        MainPageLocators.faq_question_form[1].format(question_number)
-    )
-    self.click_to_element(locator)
+    
+    @allure.step('Кликаем на Вопрос')
+    def click_for_question (self, question_id):
+        question_form = self.format_locators(MainPageLocators.faq_question_form, question_id)
+        self.scroll_for_question_block()
+        self.click_to_element(question_form)
 
-@allure.step('Получаем текст ответа на вопрос №{answer_number}')
-def get_faq_answer_text(self, answer_number: int) -> str:
-    locator = (
-        MainPageLocators.faq_answer_form[0],
-        MainPageLocators.faq_answer_form[1].format(answer_number)
-    )
-    element = self.find_element_with_wait(locator)
-    return element.text
+    @allure.step('Получение ответа на Вопрос')
+    def get_answer_text(self, question_id):
+        answer_text = self.format_locators(MainPageLocators.faq_answer_form, question_id)
+        self.scroll_for_question_block()
+        return self.get_text_from_element(answer_text)
+
+    @allure.step('Проверяем текст ответа')
+    
+    def check_answer_for_question(self, question_id):
+        self.click_for_question(question_id)
+        return self.get_answer_text(question_id)

@@ -1,4 +1,5 @@
 
+MAIN_URL = 'https://qa-scooter.praktikum-services.ru/'
 
 
 answer_for_question = {
