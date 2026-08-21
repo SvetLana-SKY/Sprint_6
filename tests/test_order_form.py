@@ -17,11 +17,12 @@ class TestOrderForm:
             f"{rent_data['days']}. Кнопка: {'внизу' if button == MainPageLocators.order_button_down else 'вверху'}"
         )
         main_page = MainPage(driver)
-        main_page.open()
+       
         try:
             main_page.accept_cookie()
         except Exception:
             pass 
+        
         main_page.created_order(button)
         order_page = OrderPage(driver)
         order_page.form_about_customer(

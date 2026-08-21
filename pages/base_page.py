@@ -2,11 +2,12 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import allure
+import time  
 
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
-        self.timeout = 10
+        self.timeout = 20
 
     @allure.title('Ищем элемент на странице c таймаутом')
     def find_element_with_wait(self, locator):
@@ -34,8 +35,16 @@ class BasePage:
 
     
     @allure.title('Пролистываем страницу до элемента')
-    def scroll_for_element(self, name_element):
-        self.driver.execute_script("arguments[0].scrollIntoView();", name_element)
+    def scroll_for_element(self, locator):
+        element = self.find_element_with_wait(locator)
+
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});",
+        element)  
+    
+        time.sleep(0.3)
+        return element
+
+  
 
 
     @allure.title('Переходим на последнюю открывшуюся вкладку')

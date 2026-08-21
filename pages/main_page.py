@@ -8,10 +8,6 @@ class MainPage(BasePage):
 
     MAIN_URL = "https://qa-scooter.praktikum-services.ru/"
 
-    @allure.step('открываем страницу')
-    def open(self):
-        self.driver.get(self.MAIN_URL)
-
     
     @allure.step('Принимаем Куки')
     def accept_cookie(self):
@@ -19,20 +15,19 @@ class MainPage(BasePage):
 
     @allure.step('Прокручиваем страницу до вопросов')
     def scroll_for_question_block(self):
-        last_question_scroll = self.find_element_with_wait(MainPageLocators.last_question)
-        return self.scroll_for_element(last_question_scroll)
+        return self.scroll_for_element(MainPageLocators.faq_section)
 
     
     @allure.step('Кликаем на Вопрос')
     def click_for_question (self, question_id):
         question_form = self.format_locators(MainPageLocators.faq_question_form, question_id)
-        self.scroll_for_question_block()
         self.click_to_element(question_form)
 
     @allure.step('Получение ответа на Вопрос')
     def get_answer_text(self, question_id):
         answer_text = self.format_locators(MainPageLocators.faq_answer_form, question_id)
         self.scroll_for_question_block()
+
         return self.get_text_from_element(answer_text)
 
     @allure.step('Проверяем текст ответа')
@@ -43,21 +38,13 @@ class MainPage(BasePage):
 
 
         
-    @allure.step('Кликаем по кнопке Заказать вверху страницы')
-    def click_for_order_button_up(self):
-        return self.click_to_element(MainPageLocators.order_button_up)
-
-    
-    @allure.step('Прокручиваем страницу вниз до кнопки Заказать')
-    def scroll_for_order_button_down(self):
-        button_order_down = self.find_element_with_wait(MainPageLocators.order_button_down)
-        self.scroll_for_element(button_order_down)
-
-    
-    @allure.step('Кликаем по кнопке Заказать внизу страницы')
-    def click_for_order_button_down(self):
-        return self.click_to_element(MainPageLocators.order_button_down)
 
     @allure.step('Создаем заказ')
-    def created_order(self, button):
-        self.click_to_element(button)
+    def created_order(self, button_locator):
+        self.scroll_for_element(button_locator)      
+        self.click_to_element(button_locator)
+
+    @allure.step('Кликаем по кнопке Заказать вверху страницы')
+    def click_for_order_button_up(self):
+        self.scroll_for_element(MainPageLocators.order_button_up) 
+        return self.click_to_element(MainPageLocators.order_button_up)

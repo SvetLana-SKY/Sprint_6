@@ -26,4 +26,4 @@ class OrderFormLocators:
     # всплывающие окна
     title_order_confirmation = (By.XPATH, '//div[contains(@class, "Order_ModalHeader") and contains(text(), "Хотите оформить заказ?")]')
     button_order_confirmation = (By.XPATH, '//button[normalize-space() = "Да"]')
-    title_order_add = (By.XPATH, '//div[text()="Заказ оформлен"]')
+    title_order_add = By.XPATH, '//div[text()="Заказ оформлен"]'
