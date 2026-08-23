@@ -2,7 +2,7 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import allure
-import time  
+
 
 class BasePage:
     def __init__(self, driver):
@@ -41,7 +41,6 @@ class BasePage:
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});",
         element)  
     
-        time.sleep(0.3)
         return element
 
   

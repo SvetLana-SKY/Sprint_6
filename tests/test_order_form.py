@@ -18,10 +18,8 @@ class TestOrderForm:
         )
         main_page = MainPage(driver)
        
-        try:
-            main_page.accept_cookie()
-        except Exception:
-            pass 
+        main_page.accept_cookie()
+         
         
         main_page.created_order(button)
         order_page = OrderPage(driver)
