@@ -5,6 +5,8 @@ from pages.navigate_page import NavigatePage
 from pages.main_page import MainPage
 
 
+
+
 class TestLogoRedirect:
     @allure.title('Переход на главную страницу сервиса при клике на логотип "Самокат" в шапке')
     def test_logo_redirect_to_main_page_success(self, driver):
@@ -15,7 +17,7 @@ class TestLogoRedirect:
         navigate_page.wait_visibility_of_header_logo_scooter()
         navigate_page.click_on_header_logo_scooter()
         
-        assert MainPage.MAIN_URL in driver.current_url
+        assert MainPage.MAIN_URL in main_page.get_current_url()
 
     @allure.title('Переход на страницу "Дзена" при клике на лого "Яндекс"')
     def test_logo_redirect_to_dzen_success(self, driver):

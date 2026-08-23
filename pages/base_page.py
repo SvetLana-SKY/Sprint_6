@@ -57,3 +57,8 @@ class BasePage:
 
         return (method, locator)
 
+
+    @allure.step('Получаем текущий URL страницы')
+    def get_current_url(self):
+        return self.driver.current_url
+
