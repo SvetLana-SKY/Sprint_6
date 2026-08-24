@@ -1,5 +1,4 @@
 import allure
-import time
 from selenium.webdriver.common.by import By
 from data import CUSTOMER_1, CUSTOMER_2, RENT_1, RENT_2
 from locators.order_form_locators import OrderFormLocators
@@ -45,7 +44,7 @@ class OrderPage(BasePage):
     @allure.step('Заполняем поле Дата')
     def input_date_rent(self, date: str):
         self.click_to_element(OrderFormLocators.placeholder_date_rent)
-        time.sleep(0.8)
+        
         day = date.split('.')[0] 
         method, template = OrderFormLocators.calendar_day
         locator_calendar_day = (method, template.format(day))

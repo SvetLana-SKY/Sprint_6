@@ -1,6 +1,4 @@
 
-MAIN_URL = 'https://qa-scooter.praktikum-services.ru/'
-
 
 answer_for_question = {
     0: 'Сутки — 400 рублей. Оплата курьеру — наличными или картой.',
